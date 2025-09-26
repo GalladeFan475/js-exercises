@@ -79,3 +79,40 @@ function createBookCard() {
     });
   });
 }
+
+const dialog = document.querySelector("dialog");
+const addBookBtn = document.querySelector(".book-new-btn");
+const submitBookBtn = document.querySelector(".form-submit-btn");
+const cancelBookBtn = document.querySelector(".form-cancel-btn");
+
+addBookBtn.addEventListener("click", () => {
+  dialog.showModal();
+});
+cancelBookBtn.addEventListener("click", () => {
+  dialog.close();
+});
+
+submitBookBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  let title = document.querySelector("#book-title-input").value;
+  let author = document.querySelector("#book-author-input").value;
+  let pages = document.querySelector("#book-pages-input").value;
+
+  addBookToLibrary(title, author, pages);
+  dialog.close();
+  document.querySelector("#book-form").reset();
+});
+
+function displayBooks() {
+  if (myLibrary.length === 0) {
+    libraryContainer.textContent = "";
+    libraryContainer.appendChild(
+      createBookElement("h2", "Your library is currently empty")
+    );
+  } else {
+    createBookCard();
+  }
+}
+
+displayBooks();

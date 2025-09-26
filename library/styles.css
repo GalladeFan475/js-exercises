@@ -42,3 +42,28 @@ body {
   background-color: white;
   align-self: start;
 }
+
+dialog {
+  padding: 5rem 7rem;
+  border-radius: 30px;
+  border: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.footer {
+  border-top: solid 5px black;
+  background-color: aqua;
+}
