@@ -13,7 +13,7 @@ function Book(title, author, pages) {
 }
 
 Book.prototype.toggleReadStatus = function () {
-  this.read = !this.read;
+  this.isRead = !this.isRead;
 };
 
 function addBookToLibrary(title, author, pages) {
@@ -28,55 +28,68 @@ function createBookElement(el, content) {
 }
 
 function createBookCard() {
-  libraryContainer.textContent = "";
+  libraryContainer.textContent = ""; // clear container
 
   myLibrary.forEach((book) => {
     // Create Card
     const bookCard = document.createElement("div");
-    bookCard.setAttribute("class", "book-card");
+    bookCard.classList.add("book-card");
 
     // Add Title to Card
-    bookCard.appendChild(createBookElement("h3", `Book Title: ${book.title}`));
+    const titleEl = createBookElement("h3", `Book Title: ${book.title}`);
+    bookCard.appendChild(titleEl);
 
     // Add Details to Card
     const bookDetails = document.createElement("div");
-    bookCard.setAttribute("class", "book-details");
+    bookDetails.classList.add("book-details");
 
-    bookDetails.appendChild(createBookElement("h4", `Book ID: ${book.ID}`));
+    bookDetails.appendChild(createBookElement("p", `Book ID: ${book.ID}`));
     bookDetails.appendChild(
-      createBookElement("h4", `Book Author: ${book.author}`)
+      createBookElement("p", `Book Author: ${book.author}`)
     );
     bookDetails.appendChild(
-      createBookElement("h4", `Book Pages: ${book.pages}`)
+      createBookElement("p", `Book Pages: ${book.pages}`)
     );
+
     bookCard.appendChild(bookDetails);
 
     // Create buttons
     const bookButtons = document.createElement("div");
-    bookButtons.setAttribute("class", "book-btn");
+    bookButtons.classList.add("book-btn");
 
-    bookButtons.appendChild(
-      createBookElement("button", book.isRead ? "Read" : "Unread").setAttribute(
-        "class",
-        book.isRead ? "book-read-btn toggle" : "book-unread-btn toggle"
-      )
+    const readBtn = createBookElement(
+      "button",
+      book.isRead ? "Read" : "Unread"
     );
-    bookButtons.appendChild(
-      createBookElement("button", "Delete Button").setAttribute(
-        "class",
-        "book-delete-btn"
-      )
+    readBtn.classList.add(
+      book.isRead ? "book-read-btn" : "book-unread-btn",
+      "toggle"
     );
 
-    // Give buttons function
-    document.querySelector(".toggle").addEventListener("click", (e) => {
+    const deleteBtn = createBookElement("button", "Delete Book");
+    deleteBtn.classList.add("book-delete-btn");
+
+    // Add button functionality
+    readBtn.addEventListener("click", (e) => {
       book.toggleReadStatus();
       e.target.textContent = book.isRead ? "Read" : "Unread";
+      e.target.classList.toggle("book-read-btn", book.isRead);
+      e.target.classList.toggle("book-unread-btn", !book.isRead);
     });
-    document.querySelector(".book-delete-btn").addEventListener("click", () => {
-      const index = myLibrary.findIndex((b) => b.id === book.id);
+
+    deleteBtn.addEventListener("click", () => {
+      const index = myLibrary.findIndex((b) => b.ID === book.ID);
       myLibrary.splice(index, 1);
+      displayBooks(); // refresh UI
     });
+
+    bookButtons.appendChild(readBtn);
+    bookButtons.appendChild(deleteBtn);
+
+    bookCard.appendChild(bookButtons);
+
+    // Append finished card to container
+    libraryContainer.appendChild(bookCard);
   });
 }
 
@@ -88,6 +101,7 @@ const cancelBookBtn = document.querySelector(".form-cancel-btn");
 addBookBtn.addEventListener("click", () => {
   dialog.showModal();
 });
+
 cancelBookBtn.addEventListener("click", () => {
   dialog.close();
 });
@@ -102,14 +116,18 @@ submitBookBtn.addEventListener("click", (e) => {
   addBookToLibrary(title, author, pages);
   dialog.close();
   document.querySelector("#book-form").reset();
+  displayBooks();
 });
 
 function displayBooks() {
   if (myLibrary.length === 0) {
     libraryContainer.textContent = "";
-    libraryContainer.appendChild(
-      createBookElement("h2", "Your library is currently empty")
+    const emptyMessage = createBookElement(
+      "h2",
+      "Your library is currently empty"
     );
+    emptyMessage.classList.add("empty-message");
+    libraryContainer.appendChild(emptyMessage);
   } else {
     createBookCard();
   }

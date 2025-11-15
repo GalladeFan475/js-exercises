@@ -28,17 +28,36 @@ body {
 
 .library {
   grid-row: 2/3;
-  background-color: black;
+  background-image: url("images/library.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .container {
   margin-top: 20px;
+  min-height: 80vh;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
+
+.empty-message {
+  border-radius: 20px;
+  font-size: 50px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 40vw;
+  text-align: center;
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+}
+
 .book-card {
   padding: 10px;
+  border-radius: 30px;
   background-color: white;
   align-self: start;
 }
@@ -61,6 +80,25 @@ form {
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+}
+
+.book-read-btn,
+.book-unread-btn {
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.book-read-btn {
+  background-color: green;
+}
+
+.book-unread-btn {
+  background-color: red;
 }
 
 .footer {
