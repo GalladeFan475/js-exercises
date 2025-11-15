@@ -12,6 +12,12 @@ body {
 }
 
 .header {
+  border-bottom: 5px solid black;
+  background-image: url("images/header.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
   height: 10vh;
   display: flex;
   flex-direction: row;
@@ -24,6 +30,26 @@ body {
   margin-block: 0;
   align-self: center;
   font-weight: bold;
+  color: white;
+}
+
+.book-new-btn {
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  box-shadow: 2px 2px 4px grey;
+}
+
+.book-new-btn:hover {
+  background-color: rgb(37, 37, 37);
+}
+
+.book-new-btn:active {
+  box-shadow: none;
 }
 
 .library {
@@ -39,7 +65,8 @@ body {
   margin-top: 20px;
   min-height: 80vh;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, 300px);
+  justify-content: center;
   gap: 20px;
 }
 
@@ -82,14 +109,24 @@ form {
   gap: 5px;
 }
 
-.book-read-btn,
-.book-unread-btn {
+.book-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.book-btn button {
   border: none;
   border-radius: 20px;
   padding: 10px;
   font-size: 20px;
   font-weight: bold;
   color: white;
+  box-shadow: 2px 2px 4px grey;
+}
+
+.book-read-btn,
+.book-unread-btn {
   transition: background-color 0.2s;
 }
 
@@ -97,8 +134,36 @@ form {
   background-color: green;
 }
 
+.book-read-btn:hover {
+  background-color: rgb(17, 158, 17);
+}
+
+.book-read-btn:active {
+  box-shadow: none;
+}
+
 .book-unread-btn {
   background-color: red;
+}
+
+.book-unread-btn:hover {
+  background-color: rgb(242, 70, 70);
+}
+
+.book-unread-btn:active {
+  box-shadow: none;
+}
+
+.book-delete-btn {
+  background-color: black;
+}
+
+.book-delete-btn:hover {
+  background-color: rgb(37, 37, 37);
+}
+
+.book-delete-btn:active {
+  box-shadow: none;
 }
 
 .footer {
