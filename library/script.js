@@ -134,3 +134,45 @@ function displayBooks() {
 }
 
 displayBooks();
+
+let count = 0;
+const color = document.querySelector(".color-btn");
+const root = document.documentElement;
+
+color.addEventListener("click", () => {
+  count += 1;
+  if (count % 2 == 0) {
+    color.textContent = "Light Mode";
+    root.style.setProperty("--text-color", "black");
+    root.style.setProperty("--background-color", "white");
+    root.style.setProperty("--new-btn-hover-color", "rgb(247, 235, 235)");
+    root.style.setProperty("--del-btn-hover-color", "rgb(48, 47, 47)");
+    root.style.setProperty(
+      "--background-header",
+      "url(images/light-mode-header.jpg)"
+    );
+    root.style.setProperty(
+      "--background-container",
+      "url(images/light-mode-library.jpg)"
+    );
+    root.style.setProperty(
+      "--message-background-color",
+      "rgba(255, 255, 255, 0.5)"
+    );
+  } else {
+    color.textContent = "Dark Mode";
+    root.style.setProperty("--text-color", "white");
+    root.style.setProperty("--background-color", "black");
+    root.style.setProperty("--new-btn-hover-color", "rgb(48, 47, 47)");
+    root.style.setProperty("--del-btn-hover-color", "rgb(247, 235, 235)");
+    root.style.setProperty(
+      "--background-header",
+      "url(images/dark-mode-header.jpg)"
+    );
+    root.style.setProperty(
+      "--background-container",
+      "url(images/dark-mode-library.jpg)"
+    );
+    root.style.setProperty("--message-background-color", "rgba(0, 0, 0, 0.5)");
+  }
+});
